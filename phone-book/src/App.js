@@ -15,6 +15,16 @@ var CONTACTS = [
   }
 ];
 
+var SearchTypes = [
+  {
+    number: '0',
+    name: 'Name'
+  }, {
+    number: '1',
+    name: 'Phone'
+  }
+]
+
 class App extends Component {
   render() {
     return (
@@ -27,27 +37,53 @@ class ContactsList extends Component {
   constructor() {
     super();
     this.state = {
-      displayedContacts: CONTACTS
+      displayedContacts: CONTACTS,
+      searchType: SearchTypes[0]
     };
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchTypeChanging = this.handleSearchTypeChanging.bind(this);
   }
 
   handleSearch(event) {
     var searchQuery = event.target.value.toLowerCase();
+    var isNameSearch = this.state.searchType === SearchTypes[0];
     var displayedContacts = CONTACTS.filter(function(el) {
-      var searchValue = el.name.toLocaleLowerCase();
-      return searchValue.indexOf(searchQuery) != -1;
+      var searchValue;
+      if(isNameSearch) {
+        searchValue = el.name.toLocaleLowerCase();
+      } else {
+        searchQuery = getClearPhoneNumber(searchQuery);
+        searchValue = getClearPhoneNumber(el.phone.toLocaleLowerCase());
+      }
+      return searchValue.indexOf(searchQuery) !== -1;
     });
+
     this.setState({
-      displayedContacts: displayedContacts
+      displayedContacts: displayedContacts,
+      searchType: this.state.searchType
     });
+  }
+
+  handleSearchTypeChanging(event) {
+    var type = event.target.value;
+    this.setState({
+      displayedContacts: this.state.displayedContacts,
+      searchType: SearchTypes[type]
+    })
   }
 
   render() {
     return (
       <div className="contacts">
         <div className="search-area">
-          <input type="text" className="search-field" onChange={this.handleSearch}/>
+          <input type="text" className="search-input" onChange={this.handleSearch}/>
+          <select className="search-select" onChange={this.handleSearchTypeChanging}>
+            {
+              SearchTypes.map(function(el) {
+                return <option key={el.number} value={el.number}>{el.name}</option>
+              })
+            }
+          </select>
         </div>
         <ul className="contacts-list">
           {
@@ -73,6 +109,10 @@ class Contact extends Component {
       </li>
     );
   }
+};
+
+function getClearPhoneNumber(number) {
+  return number.replace(/\s|-/g, '');
 };
 
 export default App;
