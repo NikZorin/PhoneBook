@@ -18,10 +18,40 @@ var CONTACTS = [
 class App extends Component {
   render() {
     return (
+      <ContactsList />
+    );
+  }
+};
+
+class ContactsList extends Component {
+  constructor() {
+    super();
+    this.state = {
+      displayedContacts: CONTACTS
+    };
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  handleSearch(event) {
+    var searchQuery = event.target.value.toLowerCase();
+    var displayedContacts = CONTACTS.filter(function(el) {
+      var searchValue = el.name.toLocaleLowerCase();
+      return searchValue.indexOf(searchQuery) != -1;
+    });
+    this.setState({
+      displayedContacts: displayedContacts
+    });
+  }
+
+  render() {
+    return (
       <div className="contacts">
+        <div className="search-area">
+          <input type="text" className="search-field" onChange={this.handleSearch}/>
+        </div>
         <ul className="contacts-list">
           {
-            CONTACTS.map(function(el) {
+            this.state.displayedContacts.map(function(el) {
               return <Contact key={el.id} name={el.name} phone={el.phone} image={el.image} />
             })
           }
@@ -29,7 +59,7 @@ class App extends Component {
       </div>  
     );
   }
-};
+}
 
 class Contact extends Component {
   render() {
