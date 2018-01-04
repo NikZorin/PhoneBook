@@ -1,0 +1,64 @@
+.contact-image {
+    border-radius: 50%;
+    margin: 5px;
+  }
+  
+  .contact-name {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .contact-phone {
+    font-size: 18px;
+    color: grey;
+  }
+  
+  .contact {
+    display: flex;
+    align-items: center;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+    width: 33%;
+    padding: 5px;
+    border-bottom: 1px dotted grey;
+  }
+  
+  .contacts {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .contacts-list {
+    padding: 0;
+    width: 100%;
+  }
+  
+  .search-area {
+    border-bottom: 2px solid grey;
+    width: 100%;
+    padding: 5px;
+  }
+  
+  .search-input {
+    font-size: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+    padding: 3px;
+  }
+  
+  .search-select {
+    font-size: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+    padding: 3px;
+    margin: 3px;
+  }
+  
+  .row-type {
+    width: 37px;
+    height: 37px;
+    border-radius: 10%;
+    margin: 5px;
+  }
+  
+  .contact-group {
+    display: flex;
+  }
+  
